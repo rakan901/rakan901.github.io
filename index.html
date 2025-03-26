@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RJ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: white;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .name-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .glitch {
+            position: relative;
+            font-size: 8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: glitch-effect 3s infinite alternate;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff0000;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fffc;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        .pulse-dot {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .bio-text {
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 0.5s;
+        }
+
+        /* animation */
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(32px, 9999px, 28px, 0); }
+            10% { clip: rect(13px, 9999px, 37px, 0); }
+            20% { clip: rect(45px, 9999px, 33px, 0); }
+            30% { clip: rect(31px, 9999px, 94px, 0); }
+            40% { clip: rect(88px, 9999px, 98px, 0); }
+            50% { clip: rect(9px, 9999px, 98px, 0); }
+            60% { clip: rect(37px, 9999px, 17px, 0); }
+            70% { clip: rect(77px, 9999px, 34px, 0); }
+            80% { clip: rect(55px, 9999px, 49px, 0); }
+            90% { clip: rect(10px, 9999px, 2px, 0); }
+            100% { clip: rect(35px, 9999px, 53px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 119px, 0); }
+            10% { clip: rect(25px, 9999px, 145px, 0); }
+            20% { clip: rect(50px, 9999px, 49px, 0); }
+            30% { clip: rect(60px, 9999px, 92px, 0); }
+            40% { clip: rect(10px, 9999px, 85px, 0); }
+            50% { clip: rect(79px, 9999px, 52px, 0); }
+            60% { clip: rect(105px, 9999px, 119px, 0); }
+            70% { clip: rect(15px, 9999px, 75px, 0); }
+            80% { clip: rect(65px, 9999px, 73px, 0); }
+            90% { clip: rect(10px, 9999px, 105px, 0); }
+            100% { clip: rect(88px, 9999px, 40px, 0); }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.5);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 5rem;
+            }
+            
+            .bio-text {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="name-container">
+        <h1 class="glitch" data-text="RJ">RJ</h1>
+        <div class="pulse-dot"></div>
+    </div>
+    
+    <div class="bio-text">
+        <!-- bio -->
+        <p>Coder, future Cyber Engineer</p>
+        <p>made this website for fun :)</p>
+        <!-- end bio -->
+    </div>
+    <script>
+        //font
+        const faScript = document.createElement('script');
+        faScript.src = 'https://kit.fontawesome.com/a076d05399.js';
+        faScript.crossOrigin = 'anonymous';
+        document.head.appendChild(faScript);
+
+        //hover effect
+        const name = document.querySelector('.glitch');
+        name.addEventListener('mouseenter', () => {
+            name.style.animation = 'glitch-effect 0.5s infinite alternate';
+        });
+        
+        name.addEventListener('mouseleave', () => {
+            name.style.animation = 'glitch-effect 3s infinite alternate';
+        });
+
+        //particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const particles = 20;
+            const colors = ['#ff0000', '#ffffff', '#ff0000', '#ffffff'];
+            
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.width = `${Math.random() * 4 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '-1';
+                
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const xMovement = (Math.random() - 0.5) * 100;
+                const yMovement = (Math.random() - 0.5) * 100;
+                
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                particle.style.setProperty('--x-move', `${xMovement}px`);
+                particle.style.setProperty('--y-move', `${yMovement}px`);
+                
+                document.body.appendChild(particle);
+            }
+            
+            //animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translate(0, 0);
+                        opacity: ${Math.random() * 0.5 + 0.1};
+                    }
+                    50% {
+                        transform: translate(var(--x-move), var(--y-move));
+                        opacity: ${Math.random() * 0.3 + 0.1};
+                    }
+                    100% {
+                        transform: translate(0, 0);
+                        opacity: ${Math.random() * 0.5 + 0.1};
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
