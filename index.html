@@ -32,27 +32,24 @@
       text-align: center;
     }
 
-    #video-background {
+    video.bg-video {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: none;
       background-color: black;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.7s ease;
     }
 
-    #video-background iframe {
-      width: 100vw;
-      height: 56.25vw;
-      min-height: 100vh;
-      min-width: 177.77vh;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+    video.bg-video.show {
+      display: block;
+      visibility: visible;
+      opacity: 1;
     }
 
     .main-profile {
@@ -269,18 +266,14 @@
     <div class="enter-text">Click to Enter</div>
   </div>
 
-  <div id="video-background">
-    <iframe
-      src="https://www.youtube.com/embed/zu3s5dBMd8o?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&playlist=zu3s5dBMd8o"
-      frameborder="0"
-      allow="autoplay; encrypted-media; fullscreen"
-      allowfullscreen
-      ></iframe>
-  </div>
+  <video class="bg-video" id="bgVideo" loop playsinline muted>
+    <source src="https://cdn.discordapp.com/attachments/1387877512515682417/1403136726804856832/uk22.mp4?ex=68967468&is=689522e8&hm=d3c6d0656c6b4ca4b6cb037d6397bf92c4c05b4c69e1d99aa6694dd782a88eff&" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
   <div class="main-profile">
     <div>
-      <img src="rj.gif" alt="RJ" />
+      <img src="RJ.gif" alt="RJ" />
     </div>
     <div class="main-profile-text">
       <h1 class="glitch" data-text="RJ">RJ</h1>
@@ -313,7 +306,7 @@
   <script>
     const counterEl = document.getElementById('visitor-count');
     const enterScreen = document.getElementById('enterScreen');
-
+    const bgVideo = document.getElementById('bgVideo');
     const START_COUNT = 67;
 
     fetch('https://api.countapi.xyz/hit/rj-visitor-counter/visits')
@@ -327,6 +320,11 @@
 
     enterScreen.addEventListener('click', () => {
       enterScreen.style.display = 'none';
+      bgVideo.classList.add('show');
+      bgVideo.muted = false;
+      bgVideo.play().catch((e) => {
+        console.error('Video play error:', e);
+      });
     });
   </script>
 </body>
