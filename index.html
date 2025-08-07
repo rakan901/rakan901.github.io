@@ -32,25 +32,27 @@
       text-align: center;
     }
 
-    video.bg-video {
+    #video-background {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      display: none;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
       background-color: black;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.7s ease;
-      
     }
 
-    video.bg-video.show {
-      display: block;
-      visibility: visible;
-      opacity: 1;
+    #video-background iframe {
+      width: 100vw;
+      height: 56.25vw;
+      min-height: 100vh;
+      min-width: 177.77vh;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
 
     .main-profile {
@@ -264,17 +266,21 @@
 </head>
 <body>
   <div class="enter-screen" id="enterScreen">
-    <div class="enter-text">Click to Enter Rj's Bio</div>
+    <div class="enter-text">Click to Enter</div>
   </div>
 
-  <video class="bg-video" id="bgVideo" loop playsinline muted>
-    <source src="uk22.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+  <div id="video-background">
+    <iframe
+      src="https://www.youtube.com/embed/zu3s5dBMd8o?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&playlist=zu3s5dBMd8o"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      ></iframe>
+  </div>
 
   <div class="main-profile">
     <div>
-      <img src="RJ.gif" alt="RJ" />
+      <img src="myphoto.webp" alt="RJ" />
     </div>
     <div class="main-profile-text">
       <h1 class="glitch" data-text="RJ">RJ</h1>
@@ -289,12 +295,12 @@
         Kuwait, Кувейт, كويت
       </span>
       <div class="socials">
-        <a href="https://github.com/rakan901" target="_blank"
+        <a href="https://github.com/yourusername" target="_blank"
           ><i class="fab fa-github"></i
         ></a>
         <a class="discord"
           ><i class="fab fa-discord"></i
-          ><span class="discord-tooltip">rj_901</span></a
+          ><span class="discord-tooltip">YourDiscord#0001</span></a
         >
       </div>
       <div class="counter">
@@ -307,31 +313,21 @@
   <script>
     const counterEl = document.getElementById('visitor-count');
     const enterScreen = document.getElementById('enterScreen');
-    const bgVideo = document.getElementById('bgVideo');
+
     const START_COUNT = 67;
 
     fetch('https://api.countapi.xyz/hit/rj-visitor-counter/visits')
       .then((res) => res.json())
       .then((data) => {
-        
         counterEl.textContent = data.value + START_COUNT;
       })
       .catch(() => {
-        
         counterEl.textContent = START_COUNT;
       });
 
     enterScreen.addEventListener('click', () => {
       enterScreen.style.display = 'none';
-
-      // vid
-      bgVideo.classList.add('show');
-      bgVideo.muted = false; // unmute when clic
-      bgVideo.play().catch((e) => {
-        console.error('Video play error:', e);
-      });
     });
   </script>
 </body>
 </html>
-// thats all
